@@ -29,6 +29,7 @@ gfortran -c wp25.f90
 
 gfortran -Wall -O2 mod_wind_power.o mod_procedures.o mod_meteo.o wp25.o -o runwp25
 ```
+Compiled with gcc version 15.2.0. OS is Ubuntu Linux (UbuntuMate) on an IBM ThinkPad corei7. 
 
 ## Example to test
 
