@@ -13,9 +13,9 @@ main program -
 modules -
 |__mod_wind_power.f90  # module with shared variables, constants
 |
-|__mod_procedures.f90  # contains subroutines called by main program
+|__mod_procedures.f90  # contains five (5) subroutines called by main program
 |
-|__mod_meteo.f90_      # contains functions called by subroutines in module procedures
+|__mod_meteo.f90_      # contains two (2) functions called by subroutines in module procedures
 
 ```
 
