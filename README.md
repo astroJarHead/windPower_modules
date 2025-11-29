@@ -10,6 +10,7 @@ via external files. Organized as:
 main program -
 |__wp25.f90 # main program
 |
+modules -
 |__mod_wind_power.f90  # module with shared variables, constants
 |
 |__mod_procedures.f90  # contains subroutines called by main program
