@@ -7,14 +7,15 @@ via external files. Organized as:
 ## code organization
 
 ```
-main program -|
-              |_wp25.f90_
-                         |
-                         |_module mod_wind_power.f90_
-                                                     |
-                                                     |_module mod_procedures.f90_
-                                                                                 |
-                                                                                 |_module mod_meteo.f90_
+main program -
+|___wp25.f90 # main program
+|
+|__mod_wind_power.f90  # module with shared variables, constants
+|
+|__mod_procedures.f90  # contains subroutines called by main program
+|
+|__mod_meteo.f90_      # contains functions called by subroutines in module procedures
+
 ```
 
 ## compilation steps
