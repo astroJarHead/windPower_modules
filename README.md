@@ -5,6 +5,7 @@ via external files. Organized as:
 
 ## code organization
 
+```
 main program -|
               |_wp25.f90_
                          |
@@ -13,7 +14,7 @@ main program -|
                                                      |_module mod_procedures.f90_
                                                                                  |
                                                                                  |_module mod_meteo.f90_
-
+```
 
 ## compilation steps
 
