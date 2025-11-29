@@ -1,6 +1,6 @@
 # windPower_modules
 
-Developed from windpower related Fortran code in repository https://github.com/astroJarHead/Fortran-practise
+Developed from windpower related Fortran code in repository https://github.com/astroJarHead/Fortran-practise.
 Takes the working file wp24.f90 and added modules 
 via external files. Organized as:
 
