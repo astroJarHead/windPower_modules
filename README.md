@@ -18,7 +18,11 @@ main program -|
 ## compilation steps
 
 gfortran -c mod_wind_power.f90
+
 gfortran -c mod_meteo.f90
+
 gfortran -c mod_procedures.f90
+
 gfortran -c wp25.f90
+
 gfortran -Wall -O2 mod_wind_power.o mod_procedures.o mod_meteo.o wp25.o -o runwp25
