@@ -54,7 +54,7 @@ Welcome to Wind Power
  getsounding:  Get the file holding the input sounding
    Enter the name of the sounding file: porthardy.txt
 
-   ...
+   ... more output and then ...
 
    saveresults:  Write to disk and screen the wind power potential
 
