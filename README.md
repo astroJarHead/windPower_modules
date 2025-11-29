@@ -8,7 +8,7 @@ via external files. Organized as:
 
 ```
 main program -
-|___wp25.f90 # main program
+|__wp25.f90 # main program
 |
 |__mod_wind_power.f90  # module with shared variables, constants
 |
