@@ -27,4 +27,4 @@ wp25.o : wp25.f90
 
 # phony rule for clean
 clean:
-	rm *.o
+	rm -i *.o *.mod
