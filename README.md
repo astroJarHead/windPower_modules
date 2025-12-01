@@ -15,7 +15,7 @@ modules -
 |
 |__mod_procedures.f90  # contains five (5) subroutines called by main program
 |
-|__mod_meteo.f90_      # contains two (2) functions called by subroutines in module procedures
+|__mod_meteo.f90       # contains two (2) functions called by subroutines in module procedures
 
 ```
 
