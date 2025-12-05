@@ -1,7 +1,7 @@
 module procedures
     ! Procedures (subroutines and functions) used for the 
     ! windpower project
-    implicit none
+    implicit none (type, external)
     private
     public :: welcome,getturbinespecs,getsounding,findpower, & 
               saveresults 
@@ -9,7 +9,6 @@ module procedures
 contains
 !=====begin procedures: subroutines==============
     subroutine welcome
-        implicit none
           write(*,*)
           write(*,*) "Welcome to Wind Power"
     end subroutine welcome
@@ -17,7 +16,6 @@ contains
     subroutine getturbinespecs
 
     use wind_power, only : r,zhub
-    implicit none           !enforce strong typing
     ! no var declarations, carried from module use ... only : 
 
     write(*,*)
@@ -44,7 +42,6 @@ contains
 
     use wind_power, only : sounding_file,title,zmsl,speed_msec,speed_array,  & 
                                first_ten_sound,fmt2
-    implicit none                         !enforce strong typing 
 
     character (len=30), parameter :: fmt = "(T8,F7.0,35X,F7.0)"
     character (len=100) :: line           !one line in the sounding file
@@ -128,9 +125,8 @@ contains
     subroutine findpower
 
     use wind_power, only : zhub, r, iters, power_out, header1,total_power 
-    use meteo     
+    use meteo, only : M, density     
 
-    implicit none
     real :: delz ! height increment across turbine
     real :: zref ! reference height below turbine blade
     real :: zz   ! arbitrary height along turbine blade
@@ -195,8 +191,7 @@ contains
     use wind_power, only : sounding_file,zhub,r,fmt2,first_ten_sound, & 
         header1,power_out,iters,title,total_power
 
-    implicit none
-    real :: power = 0.0    ! power (W) outout from turbine
+    real, save :: power = 0.0    ! power (W) outout from turbine
     real :: kiloWattPower  ! power in kilowatts
     real :: megaWattPower  ! power in megawatts
     integer :: i ! loop counter

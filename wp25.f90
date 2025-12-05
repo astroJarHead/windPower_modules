@@ -29,7 +29,7 @@ program windpowermain
  !use mod_wind_power
   use procedures
 ! declare variables
-  implicit none               !enforce strong typing
+  implicit none (type, external)              !enforce strong typing
   real :: start, finish       ! cpu time variables
   call cpu_time(start)
 

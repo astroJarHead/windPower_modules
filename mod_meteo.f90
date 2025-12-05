@@ -1,7 +1,7 @@
 module meteo
     ! Module meteo contains meteorological functions 
     !
-    implicit none
+    implicit none (type, external)
     private
     public M,density
     
@@ -18,7 +18,6 @@ contains
     ! zr is greater than maximum height in sounding: M = -12000.0
 
     use wind_power, only : speed_msec,zmsl
-    implicit none
 
     ! declare variables
     real, intent(in) :: zr ! input argument - height at which to interpolate 
@@ -84,8 +83,7 @@ contains
     ! scale height
 
     use wind_power, only : zmsl
-    implicit none
-
+ 
     ! declare variables
     real, intent(in) :: zr ! input argument - height AGL at which density 
                            ! is desired
