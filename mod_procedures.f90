@@ -139,11 +139,34 @@ contains
     real :: rect_area ! area of the rectangle = chord_len * B
     real :: delpower ! an increment of windpower for an area of rect_area
     integer :: i   ! counting index
+    integer :: iostatRead ! for saving iostat result
+    integer :: userInput ! input from user for number of rectangles
+    character(len=20) :: input ! input query for number of rectangles
+
+    ! Initialize NUmber of rectangles to 20
+    iters = 20
 
     write(*,*)
-    write(*,*) "findpower:  Calculate the wind power."
-    write(*,'(A,i4,A)') " Dividing turbine into ",iters," rectangles."
-    write(*,*)
+    write(*,*) " findpower:  Calculate the wind power."
+    write(*,*) "------------------------------"
+    write(*,*) " Turbine blade area divided into rectangles for power estimate. "
+    write(*,'(A,i4)') " Default number of rectangles = ",iters
+    write(*,*) " Enter an integer or press Enter to accept the default value "
+    read(*,*) input
+    ! Check if the input is empty (user pressed Enter)
+    if (trim(input) == '') then
+      iters = 20
+    else
+      ! try to convert input -> integer
+      read(input, *, IOSTAT=iostatRead) userInput
+      if (iostatRead /= 0) then
+        write(*,*) " Invalid input, using default number of rectangles."
+        iters = 20
+      else
+        iters = userInput
+      endif
+    endif
+    ! 
 
     ! With rectangle count set and user informed of this count,
     ! allocate the array size to hold the data from the rectangles

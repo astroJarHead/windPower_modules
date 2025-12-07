@@ -13,7 +13,7 @@ module wind_power
     real :: r       !radius of turbine blade (m)
     ! Atmospheric sounding variables
     integer, parameter :: maxlines = 120  !max sounding lines that can be captured
-    integer :: iters = 20 ! number of iterations (rectangles) across turbine
+    integer :: iters ! number of iterations (rectangles) across turbine
     real, dimension(maxlines) :: zmsl   !array of heights MSL (m)
     real, dimension(maxlines) :: speed_array  !array of wind speed (knots)
     real, dimension(maxlines) :: speed_msec  !array of wind speed (m/sec)
