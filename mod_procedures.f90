@@ -197,10 +197,8 @@ contains
         ! absolute vlue of B used here as B could be < 0
         rect_area = chord_len*delz
         delpower = 0.5*rho*rect_area*(speedz**3)
-        ! sum up the power generated in Watts
-        total_power = total_power + delpower
         write(*,'(3X,F7.3,10X,F7.3,9X,F9.4,7X,F7.2,7X,F12.2,4X,F12.2)') zz,speedz, & 
-                rho,chord_len,delpower,rect_area
+            rho,chord_len,delpower,rect_area
         ! Fill in the data for power_out to use in saveresults
         power_out(i,1) = zz
         power_out(i,2) = speedz
@@ -209,6 +207,9 @@ contains
         power_out(i,5) = delpower
         power_out(i,6) = rect_area
     enddo
+
+    ! Get total power in Watts by summing column 5
+    total_power = SUM(power_out(:, 5))
 
     end subroutine findpower
 
@@ -270,9 +271,9 @@ contains
 
     ! write the output data computed across the turbine
     do i = iters,1,-1
-        write(10,'(3X,F7.3,10X,F7.3,9X,F9.4,7X,F7.2,7X,F12.2)') &
+        write(10,'(3X,F7.3,10X,F7.3,9X,F9.4,7X,F7.2,7X,F12.2,4X,F12.2)') &
         power_out(i,1),power_out(i,2),power_out(i,3), &
-        power_out(i,4),power_out(i,5)
+        power_out(i,4),power_out(i,5),power_out(i,6)
     enddo
 
     write(10,*)
