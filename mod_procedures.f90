@@ -195,7 +195,7 @@ contains
         chord_len = 2.0*sqrt(r**2 - B**2)
         ! area of rectangle for power equation = chord_len*B
         ! absolute vlue of B used here as B could be < 0
-        rect_area = chord_len*abs(delz)
+        rect_area = chord_len*delz
         delpower = 0.5*rho*rect_area*(speedz**3)
         ! sum up the power generated in Watts
         total_power = total_power + delpower
