@@ -139,17 +139,43 @@ contains
     real :: rect_area ! area of the rectangle = chord_len * B
     real :: delpower ! an increment of windpower for an area of rect_area
     integer :: i   ! counting index
+    integer :: iostatRead ! for saving iostat result
+    integer :: userInput ! input from user for number of rectangles
+    character(len=20) :: input ! input query for number of rectangles
+
+    ! Initialize Number of rectangles to 20
+    iters = 20
 
     write(*,*)
-    write(*,*) "findpower:  Calculate the wind power."
-    write(*,'(A,i4,A)') " Dividing turbine into ",iters," rectangles."
-    write(*,*)
+    write(*,*) " findpower:  Calculate the wind power."
+    write(*,*) "------------------------------"
+    write(*,*) " Turbine blade area divided into rectangles for power estimate. "
+    write(*,'(A,i4)') " Default number of rectangles = ",iters
+    write(*,*) " Enter an integer or press Enter to accept the default value "
+    read(*,'(A)') input
+    ! Check if the input is empty (user pressed Enter)
+    if (trim(input) == '') then
+      iters = 20
+    else
+      ! try to convert input -> integer
+      read(input, *, IOSTAT=iostatRead) userInput
+      if (iostatRead /= 0) then
+        write(*,*) " Invalid input, using default number of rectangles."
+        iters = 20
+      else
+        iters = userInput
+      endif
+    endif
+    ! 
 
     ! With rectangle count set and user informed of this count,
     ! allocate the array size to hold the data from the rectangles
     allocate(power_out(iters,5))
 
-    delz = 2.0*r/iters ! divide diameter of turbine into 20 parts
+    delz = 2.0*r/iters ! divide diameter of turbine into iters parts
+    write(*,*)
+    write(*,'(A,f5.2,A)') " Height of each rectangle is: ",delz," (m)."
+    write(*,*)
     zref = zhub - r - 0.5*delz ! one-half delta-z below turbine blade
 
     ! Prepare the output with titles at the top of the screen
