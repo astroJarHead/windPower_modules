@@ -170,7 +170,7 @@ contains
 
     ! With rectangle count set and user informed of this count,
     ! allocate the array size to hold the data from the rectangles
-    allocate(power_out(iters,5))
+    allocate(power_out(iters,6))
 
     delz = 2.0*r/iters ! divide diameter of turbine into iters parts
     write(*,*)
@@ -195,18 +195,19 @@ contains
         chord_len = 2.0*sqrt(r**2 - B**2)
         ! area of rectangle for power equation = chord_len*B
         ! absolute vlue of B used here as B could be < 0
-        rect_area = chord_len*abs(B)
+        rect_area = chord_len*delz
         delpower = 0.5*rho*rect_area*(speedz**3)
         ! sum up the power generated in Watts
         total_power = total_power + delpower
-        write(*,'(3X,F7.3,10X,F7.3,9X,F9.4,7X,F7.2,7X,F12.2)') zz,speedz, & 
-                rho,chord_len,delpower
+        write(*,'(3X,F7.3,10X,F7.3,9X,F9.4,7X,F7.2,7X,F12.2,4X,F12.2)') zz,speedz, & 
+                rho,chord_len,delpower,rect_area
         ! Fill in the data for power_out to use in saveresults
         power_out(i,1) = zz
         power_out(i,2) = speedz
         power_out(i,3) = rho
         power_out(i,4) = chord_len
         power_out(i,5) = delpower
+        power_out(i,6) = rect_area
     enddo
 
     end subroutine findpower
