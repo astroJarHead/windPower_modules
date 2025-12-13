@@ -26,6 +26,7 @@ module wind_power
     character (len=100) :: title          !holds first line of sounding file
     character (len=100), dimension(maxlines) :: sounding     !holds the whole sounding
     ! define a CHARACTER PARAMETER variable for the output header string
-    character (LEN=*), parameter :: header1 = " height AGL (m)  wind speed (m/s)  rho (kg/m^3)  chord_len (m)   delpower (W)"
+    character (LEN=*), parameter :: header1 = & 
+    " height AGL (m)  wind speed (m/s)  rho (kg/m^3)  chord_len (m)   delpower (W) rect area (m^2)"
 
   end module wind_power
