@@ -197,10 +197,8 @@ contains
         ! absolute vlue of B used here as B could be < 0
         rect_area = chord_len*delz
         delpower = 0.5*rho*rect_area*(speedz**3)
-        ! sum up the power generated in Watts
-        total_power = total_power + delpower
         write(*,'(3X,F7.3,10X,F7.3,9X,F9.4,7X,F7.2,7X,F12.2,4X,F12.2)') zz,speedz, & 
-                rho,chord_len,delpower,rect_area
+            rho,chord_len,delpower,rect_area
         ! Fill in the data for power_out to use in saveresults
         power_out(i,1) = zz
         power_out(i,2) = speedz
@@ -209,6 +207,9 @@ contains
         power_out(i,5) = delpower
         power_out(i,6) = rect_area
     enddo
+
+    ! Get total power in Watts by summing column 5
+    total_power = SUM(power_out(:, 5))
 
     end subroutine findpower
 
@@ -221,11 +222,18 @@ contains
     real, save :: power = 0.0    ! power (W) outout from turbine
     real :: kiloWattPower  ! power in kilowatts
     real :: megaWattPower  ! power in megawatts
+    real :: turbArea ! area swept out by turbine blades
+    real :: sum_of_rectAreas ! sum of area of rectangles
+    ! define pi via arctan function
+    real :: pi 
     integer :: i ! loop counter
     integer :: sounding_charlen ! length of sounding filename
     integer :: root_end_index ! Index of last character root of sounding filename
     character (len=30) :: sounding_rootname ! rootname of the sounding filename
     character (len=30) :: output_file ! output wind power file
+
+    ! initialize pi
+    pi = 4.0*atan(1.0)
 
     write(*,*)
     write(*,*) "saveresults:  Write to disk and screen the wind power potential"
@@ -270,9 +278,9 @@ contains
 
     ! write the output data computed across the turbine
     do i = iters,1,-1
-        write(10,'(3X,F7.3,10X,F7.3,9X,F9.4,7X,F7.2,7X,F12.2)') &
+        write(10,'(3X,F7.3,10X,F7.3,9X,F9.4,7X,F7.2,7X,F12.2,4X,F12.2)') &
         power_out(i,1),power_out(i,2),power_out(i,3), &
-        power_out(i,4),power_out(i,5)
+        power_out(i,4),power_out(i,5),power_out(i,6)
     enddo
 
     write(10,*)
@@ -281,8 +289,16 @@ contains
     power = total_power
     kiloWattPower = power/1000.0
     megaWattPower = kiloWattPower/1000.0
+    ! Compute turbine blade area
+    turbArea = pi*r**2
+    ! Total the area of all the rectangles
+    sum_of_rectAreas = SUM(power_out(:,6))
 
     ! Format string accomodates up to 100 Gigawatts, output as Watts
+    write(*,'(A,F10.2,A)') " For a turbine blade area = ", turbArea, " (m^2)"
+    write(10,'(A,F10.2,A)') " For a turbine blade area = ", turbArea, " (m^2)"    
+    write(*,'(A,F10.2,A)') " with estimated area of : ", sum_of_rectAreas, " (m^2)"
+    write(10,'(A,F10.2,A)') " with estimated area of : ", sum_of_rectAreas, " (m^2)"
     write(*,'(A,F15.2,A)') " power = ", power, " Watts"
     write(10,'(A,F15.2,A)') " power = ", power, " Watts"
     write(*,'(A,F12.2,A)') " power = ", kiloWattPower, " kWatts"
