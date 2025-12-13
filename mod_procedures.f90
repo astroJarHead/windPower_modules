@@ -222,11 +222,18 @@ contains
     real, save :: power = 0.0    ! power (W) outout from turbine
     real :: kiloWattPower  ! power in kilowatts
     real :: megaWattPower  ! power in megawatts
+    real :: turbArea ! area swept out by turbine blades
+    real :: sum_of_rectAreas ! sum of area of rectangles
+    ! define pi via arctan function
+    real :: pi 
     integer :: i ! loop counter
     integer :: sounding_charlen ! length of sounding filename
     integer :: root_end_index ! Index of last character root of sounding filename
     character (len=30) :: sounding_rootname ! rootname of the sounding filename
     character (len=30) :: output_file ! output wind power file
+
+    ! initialize pi
+    pi = 4.0*atan(1.0)
 
     write(*,*)
     write(*,*) "saveresults:  Write to disk and screen the wind power potential"
@@ -282,8 +289,16 @@ contains
     power = total_power
     kiloWattPower = power/1000.0
     megaWattPower = kiloWattPower/1000.0
+    ! Compute turbine blade area
+    turbArea = pi*r**2
+    ! Total the area of all the rectangles
+    sum_of_rectAreas = SUM(power_out(:,6))
 
     ! Format string accomodates up to 100 Gigawatts, output as Watts
+    write(*,'(A,F10.2,A)') " For a turbine blade area = ", turbArea, " (m^2)"
+    write(10,'(A,F10.2,A)') " For a turbine blade area = ", turbArea, " (m^2)"    
+    write(*,'(A,F10.2,A)') " with estimated area of : ", sum_of_rectAreas, " (m^2)"
+    write(10,'(A,F10.2,A)') " with estimated area of : ", sum_of_rectAreas, " (m^2)"
     write(*,'(A,F15.2,A)') " power = ", power, " Watts"
     write(10,'(A,F15.2,A)') " power = ", power, " Watts"
     write(*,'(A,F12.2,A)') " power = ", kiloWattPower, " kWatts"
