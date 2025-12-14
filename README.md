@@ -74,3 +74,10 @@ Welcome to Wind Power
  **********PROGRAM Wind Power FINISHED**********
 ```
 
+## A test case
+
+Vestas, https://www.vestas.com/en , a sustainable energy company, has turbines in service that provide a helpful example to test the code against a real world case. Their EnVentus V172-7.2 turbine with a hub height of 166 m and a rotor diameter of 172 m with an average wind speed of 6 m/sec would generate about 1.9 MegaWatts per day. The Darwin weather data averaged over the heights samped by this turbine has an average wind speed of 4.9 m/sec, and with 50 rectangles the code predicts a power output 1.78 MegaWatts. The code using pi*r^2 over-estimates the turbine blade area, and thus I think EnVentus accounts for the part of the hub that does not sample the wind. 
+
+### Conclusion
+
+The algorithm and my implementation of the code provides a reasonable estimate of wind turbine power output against one real world example. 
