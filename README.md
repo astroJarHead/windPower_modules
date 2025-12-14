@@ -21,6 +21,10 @@ modules -
 
 ## compilation steps
 
+A Makefile is included in this repository. Use the file Makefile as the other Makefiles are archived 
+versions of developmental versions that led to Makefile. For individual steps at the command line 
+without using a Makefile see the following step by step instructions using gfortran.
+
 ```
 gfortran -c mod_wind_power.f90
 
